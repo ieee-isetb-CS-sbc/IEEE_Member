@@ -38,7 +38,6 @@ void getFromLocalStoreg() async {
   if (usersJson != null) {
     final userdecode = jsonDecode(usersJson);
     List<Member> data = userdecode.map<Member>((user) => Member.fromJson(user)).toList();
-    print(data);
     setState(() {
         Members = data.toList() ?? [];
         countIEE=data.length;
@@ -51,7 +50,7 @@ void getFromLocalStoreg() async {
   void addInLocalStorageMember(){
     for(var element in _data.skip(1)){
         int idRandom=Random.secure().nextInt(99999);
-        Member member=Member(id: idRandom, nom: element[1].toString(), cin: element[2].toString(), lastname: element[3].toString(), email: element[4].toString(), ispayer: false, present: false,tlf: element[5].toString(), chaptername: element[element.length-1].toString().toLowerCase());
+        Member member=Member(id: idRandom, nom: element[1].toString(), cin: element[4].toString(), lastname: element[2].toString(), email: element[3].toString(), ispayer: false, present: false,tlf: element[5].toString(), chaptername: element[7].toString().toUpperCase());
         Members.add(member);
     }
     SetLocalStorge(Members);

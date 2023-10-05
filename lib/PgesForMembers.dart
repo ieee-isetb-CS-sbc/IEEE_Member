@@ -130,19 +130,22 @@ Widget build(BuildContext context) {
   mainAxisAlignment: MainAxisAlignment.end,
   children: [
     FloatingActionButton(
+       backgroundColor: widget.NameChapter.toUpperCase()=="RAS" ? Color.fromARGB(255, 55, 2, 64) : widget.NameChapter.toUpperCase()=="WIE"  ? Colors.pink : widget.NameChapter.toUpperCase()=="IAS" ? Color.fromARGB(255, 2, 201, 9) : widget.NameChapter.toUpperCase()=="OTHER" ? Colors.white : Colors.blue ,
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) =>
           AddMember(chapterName: widget.NameChapter, addInLocalStorageMember: addInLocalStorageMember)
         ));
       },
-      child:const Text("Add"), 
+      child: Text("Add", style:  TextStyle(color: widget.NameChapter.toUpperCase()=="OTHER" ? Colors.blue : Colors.white, fontWeight: FontWeight.bold),), 
     ),
   ],
 ),
     appBar: AppBar(
+      iconTheme: IconThemeData(color:widget.NameChapter.toUpperCase()=="OTHER" ? Colors.blue : Colors.white ),
+      backgroundColor: widget.NameChapter.toUpperCase()=="RAS" ? Color.fromARGB(255, 55, 2, 64) : widget.NameChapter.toUpperCase()=="WIE"  ? Colors.pink : widget.NameChapter.toUpperCase()=="IAS" ? Color.fromARGB(255, 2, 201, 9) : widget.NameChapter.toUpperCase()=="OTHER" ? Colors.white : Colors.blue ,
       title: Text(
         "${widget.NameChapter}  (${data.length})",
-        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        style:  TextStyle(color: widget.NameChapter.toUpperCase()=="OTHER" ? Colors.blue : Colors.white, fontWeight: FontWeight.bold),
       ),
       actions: [
         IconButton(onPressed:(){ initPresent(widget.NameChapter) ;}, icon:const Icon(Icons.replay_outlined))
@@ -181,13 +184,16 @@ Widget build(BuildContext context) {
               itemCount: data.length,
               itemBuilder: (context, index) {
                 Member memeber = data[index];
-                return Dismissible(key: Key(memeber.cin),
+                return Dismissible(key: Key(memeber.id.toString()),
                  background: Container(
                    color: Colors.cyan,
                    child: const Icon(Icons.delete,color: Colors.white,),
                  ),
                  onDismissed: (direction) {
                       deleteUser(data[index].id);
+                      setState(() {
+                         data.removeAt(index);
+                      });
                  },
                  child: 
                 Card(
@@ -224,21 +230,29 @@ Widget build(BuildContext context) {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text("Are  ${data[index].nom} Paye"),
+                                  title: Text("${data[index].nom} Payed "),
                                   actions: [
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
                                         ElevatedButton(
                                           onPressed: () {
-                                             changePayer(data[index].ispayer,data[index].id);
+                                            if(data[index].ispayer==true){
+                                              Navigator.pop(context);
+                                            }else{
+                                                changePayer(data[index].ispayer,data[index].id);
+                                            }
                                           },
                                           style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                                              child: const Text("Yes"),
                                         ),
                                         ElevatedButton(
                                           onPressed: () {
-                                            Navigator.pop(context);
+                                              if(data[index].ispayer==false){
+                                              Navigator.pop(context);
+                                            }else{
+                                                changePayer(data[index].ispayer,data[index].id);
+                                            }
                                           },
                                             style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                                               child:const  Text("No !"),
@@ -249,7 +263,7 @@ Widget build(BuildContext context) {
                                 );
                               }
                         ); 
-                        }, icon:Icon(data[index].ispayer? Icons.attach_money_sharp : Icons.money_off))
+                        }, icon:Icon(data[index].ispayer ? Icons.attach_money_sharp : Icons.money_off,color:data[index].ispayer ? Colors.blue : Colors.grey,))
                       ],
                     ),
                   ),

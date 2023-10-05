@@ -4,12 +4,13 @@ class Member{
   String lastname;
   String email;
   String cin;
+  String tlf;
   bool ispayer;
   bool present;
   String chaptername;
   
   Member({required this.id,required this.nom,required this.cin,required this.lastname,required this.email,required this.ispayer,
-  required this.present,required this.chaptername});
+  required this.present,required this.tlf,required this.chaptername});
 
   factory Member.fromJson(Map<String,dynamic> json){
     return Member(
@@ -20,6 +21,7 @@ class Member{
        email: json['email'], 
        ispayer: json['ispayer'], 
        present: json['present'], 
+       tlf: json['tlf'],
        chaptername: json['chaptername']) ;
   }
 
@@ -33,6 +35,7 @@ class Member{
       'ispayer': ispayer,
       'present': present,
       'chaptername': chaptername,
+      'tlf':tlf
     };
   }
 

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:member_ieee/AddMember.dart';
 import 'package:member_ieee/Model/Member.dart';
@@ -31,9 +30,9 @@ class _PagesForMember extends State<PagesForMember> {
         getFromLocalStoreg("");
   }
 
-  void addInLocalStorageMember(String nom,String lastname,String email,String cin){
+  void addInLocalStorageMember(String nom,String lastname,String email,String cin,String tlf){
     int idRandom=Random.secure().nextInt(99999);
-    Member member=Member(id: idRandom, nom: nom, cin: cin, lastname: lastname, email: email, ispayer: false, present: false, chaptername: widget.NameChapter);
+    Member member=Member(id: idRandom, nom: nom, cin: cin, lastname: lastname, email: email, ispayer: false, present: false,tlf: tlf, chaptername: widget.NameChapter);
     Members.add(member);
     SetLocalStorge(Members);
     getFromLocalStoreg("");
@@ -60,7 +59,6 @@ void deleteUser(int id)  {
         content: Text("Member deleted",style: TextStyle(color: Colors.white,fontSize: 15))
         )
     );
-   // Navigator.of(context).pop("test");
     getFromLocalStoreg("");
   }
 }
@@ -121,18 +119,26 @@ void ChangeSatet(val,int id){
   Navigator.pop(context);
 }
 
+
  
-  @override
+@override
 Widget build(BuildContext context) {
   List<Member> data=search.isEmpty ? Members.where((element) => element.chaptername == widget.NameChapter).toList() :
-    Members.where((element) => element.chaptername == widget.NameChapter && element.nom.toLowerCase().contains(search.toLowerCase())).toList()
-  ;
+    Members.where((element) => element.chaptername == widget.NameChapter && element.nom.toLowerCase().contains(search.toLowerCase())).toList();
   return Scaffold(
-    floatingActionButton: FloatingActionButton(onPressed: (){
-      Navigator.push(context,MaterialPageRoute(builder: (context)=>
-          AddMember(chapterName: widget.NameChapter,addInLocalStorageMember:addInLocalStorageMember)
-    ));
-    },child: const Text("Add"),),
+    floatingActionButton: Row(
+  mainAxisAlignment: MainAxisAlignment.end,
+  children: [
+    FloatingActionButton(
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>
+          AddMember(chapterName: widget.NameChapter, addInLocalStorageMember: addInLocalStorageMember)
+        ));
+      },
+      child:const Text("Add"), 
+    ),
+  ],
+),
     appBar: AppBar(
       title: Text(
         "${widget.NameChapter}  (${data.length})",
@@ -242,8 +248,7 @@ Widget build(BuildContext context) {
                                   ],
                                 );
                               }
-                        );
-                         
+                        ); 
                         }, icon:Icon(data[index].ispayer? Icons.attach_money_sharp : Icons.money_off))
                       ],
                     ),
@@ -257,6 +262,3 @@ Widget build(BuildContext context) {
   );
 }
 }
-/*
-
-  */

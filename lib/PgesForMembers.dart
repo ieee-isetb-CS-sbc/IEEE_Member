@@ -96,6 +96,18 @@ void ChangeSatet(val,int id){
   getFromLocalStoreg("");
 }
 
+ void initPresent(String chaptername){
+  setState(() {
+    for(int i=0;i<Members.length;i++){
+      if(Members[i].chaptername==chaptername){
+        Members[i].present=false;
+      }
+    }
+  });
+   SetLocalStorge(Members);
+   getFromLocalStoreg("");
+ }
+
  void changePayer(val,int id){
   print(id);
   setState(() {
@@ -107,6 +119,7 @@ void ChangeSatet(val,int id){
   });
   SetLocalStorge(Members);
   getFromLocalStoreg("");
+  Navigator.pop(context);
 }
 
  
@@ -126,6 +139,9 @@ Widget build(BuildContext context) {
         "${widget.NameChapter}  (${data.length})",
         style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
+      actions: [
+        IconButton(onPressed:(){ initPresent(widget.NameChapter) ;}, icon:const Icon(Icons.replay_outlined))
+      ],
     ),
     body: Column(
       children: [
@@ -199,7 +215,36 @@ Widget build(BuildContext context) {
                           ),
                         ),
                         IconButton(onPressed: (){
-                          changePayer(data[index].ispayer,data[index].id);
+                                showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Are  ${data[index].nom} Paye"),
+                                  actions: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                             changePayer(data[index].ispayer,data[index].id);
+                                          },
+                                          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                                             child: const Text("Yes"),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+                                              child:const  Text("No !"),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                );
+                              }
+                        );
+                         
                         }, icon:Icon(data[index].ispayer? Icons.attach_money_sharp : Icons.money_off))
                       ],
                     ),
@@ -215,30 +260,4 @@ Widget build(BuildContext context) {
 }
 /*
 
-  showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text("Do You Want Delete  ${data[index].nom}"),
-                                  actions: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            deleteUser(data[index].id);
-                                          },
-                                          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                                             child: const Text("confirm"),
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            
-                                          },
-                                            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-                                              child:const  Text("Close"),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                );*/
+  */

@@ -18,10 +18,11 @@ class _AddMemberState extends State<AddMember> {
   String lastname="";
   String email="";
   String cin="";
+  String tlf="";
 
   void AddMemeber(){
     if(_formKey.currentState!.validate()){
-        widget.addInLocalStorageMember(Name,lastname,email,cin);
+        widget.addInLocalStorageMember(Name,lastname,email,cin,tlf);
         Navigator.of(context).pop();
     }
   }
@@ -114,6 +115,24 @@ class _AddMemberState extends State<AddMember> {
                   },
                     decoration:const InputDecoration(
                        label: Text("Email")
+                    ),
+                  ),
+                   TextFormField(
+                     autovalidateMode:AutovalidateMode.onUserInteraction,
+                     keyboardType: TextInputType.number,
+                     validator: (value){
+                    if(value==null || value.isEmpty){
+                      return "TLF Required";
+                    }
+                    return null;
+                  },
+                   onChanged: (value) {
+                    setState(() {
+                      tlf=value;
+                    });
+                  },
+                    decoration: const InputDecoration(
+                       label: Text("Num Tlf")
                     ),
                   ),
                      const SizedBox(height: 20),

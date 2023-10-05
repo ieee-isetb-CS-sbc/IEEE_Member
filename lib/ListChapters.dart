@@ -51,7 +51,7 @@ void getFromLocalStoreg() async {
   void addInLocalStorageMember(){
     for(var element in _data.skip(1)){
         int idRandom=Random.secure().nextInt(99999);
-        Member member=Member(id: idRandom, nom: element[1], cin: element[2], lastname: element[3], email: element[4], ispayer: false, present: false,tlf: element[5], chaptername: element[element.length-1].toString().toLowerCase());
+        Member member=Member(id: idRandom, nom: element[1].toString(), cin: element[2].toString(), lastname: element[3].toString(), email: element[4].toString(), ispayer: false, present: false,tlf: element[5].toString(), chaptername: element[element.length-1].toString().toLowerCase());
         Members.add(member);
     }
     SetLocalStorge(Members);

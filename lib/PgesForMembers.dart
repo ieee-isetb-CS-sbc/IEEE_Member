@@ -109,7 +109,6 @@ void ChangeSatet(val,int id){
  }
 
  void changePayer(val,int id){
-  print(id);
   setState(() {
        for(int i=0;i<Members.length;i++){
       if(Members[i].id==id){

@@ -14,13 +14,14 @@ class _AddMemberState extends State<AddMember> {
 
   final _formKey = GlobalKey<FormState>();
 
-  String nom="";
+  String Name="";
   String lastname="";
   String email="";
+  String cin="";
 
   void AddMemeber(){
     if(_formKey.currentState!.validate()){
-        widget.addInLocalStorageMember(nom,lastname,email);
+        widget.addInLocalStorageMember(Name,lastname,email,cin);
         Navigator.of(context).pop();
     }
   }
@@ -28,7 +29,7 @@ class _AddMemberState extends State<AddMember> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Add Member"),),
+        appBar: AppBar(title:const Text("Add Member"),),
         body: SingleChildScrollView(
           child: Padding(padding: const EdgeInsets.all(50),
           child: Column(
@@ -39,7 +40,7 @@ class _AddMemberState extends State<AddMember> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                  ),
-                child:Image.asset("images/${widget.chapterName.toLowerCase()}.PNG"),
+                child:Image.asset("images/${widget.chapterName.toLowerCase()=='other' ? 'sb.JPG' : widget.chapterName.toLowerCase()+'.PNG'}"),
               ),
             Form(key: _formKey,child: Column(
                children: [
@@ -53,7 +54,7 @@ class _AddMemberState extends State<AddMember> {
                   },
                   onChanged: (value) {
                     setState(() {
-                      nom=value;
+                      Name=value;
                     });
                   },
                     decoration: const InputDecoration(
@@ -78,9 +79,28 @@ class _AddMemberState extends State<AddMember> {
                        label: Text("LastName")
                     ),
                   ),
+                    TextFormField(
+                     autovalidateMode:AutovalidateMode.onUserInteraction,
+                     keyboardType: TextInputType.number,
+                     validator: (value){
+                    if(value==null || value.isEmpty){
+                      return "Cin Required";
+                    }
+                    return null;
+                  },
+                   onChanged: (value) {
+                    setState(() {
+                      cin=value;
+                    });
+                  },
+                    decoration: const InputDecoration(
+                       label: Text("Cin")
+                    ),
+                  ),
                   const SizedBox(height: 20),
                    TextFormField(
                      autovalidateMode:AutovalidateMode.onUserInteraction ,
+                     keyboardType: TextInputType.emailAddress,
                      validator: (value){
                     if(value==null || value.isEmpty){
                       return "Email Required";

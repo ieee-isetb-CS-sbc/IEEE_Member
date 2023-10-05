@@ -31,9 +31,9 @@ class _PagesForMember extends State<PagesForMember> {
         getFromLocalStoreg("");
   }
 
-  void addInLocalStorageMember(String nom,String lastname,String email){
+  void addInLocalStorageMember(String nom,String lastname,String email,String cin){
     int idRandom=Random.secure().nextInt(99999);
-    Member member=Member(id: idRandom, nom: nom, lastname: lastname, email: email, ispayer: false, present: false, chaptername: widget.NameChapter);
+    Member member=Member(id: idRandom, nom: nom, cin: cin, lastname: lastname, email: email, ispayer: false, present: false, chaptername: widget.NameChapter);
     Members.add(member);
     SetLocalStorge(Members);
     getFromLocalStoreg("");
@@ -49,7 +49,7 @@ class _PagesForMember extends State<PagesForMember> {
     await storage.write(key: "Members", value:usersJson);
   }
 
-void deleteUser(int id) async {
+void deleteUser(int id)  {
   Member index=Members.firstWhere((element) => element.id==id);
   if (index != -1) {
     Members.remove(index);
@@ -60,8 +60,7 @@ void deleteUser(int id) async {
         content: Text("Member deleted",style: TextStyle(color: Colors.white,fontSize: 15))
         )
     );
-    setState(() {}); 
-    Navigator.of(context).pop("test");
+   // Navigator.of(context).pop("test");
     getFromLocalStoreg("");
   }
 }
@@ -148,19 +147,29 @@ Widget build(BuildContext context) {
           ),
         ),
         if (data.isEmpty)
-          const Center(
+          const Padding(padding: EdgeInsets.only(top: 250),
+          child:   Center(
             child: Text(
-              "Members Not Found",
+              "No One Yet",
               style: TextStyle(fontSize: 25),
             ),
-          )
+          ),)
         else
           Expanded(
             child: ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
                 Member memeber = data[index];
-                return Card(
+                return Dismissible(key: Key(memeber.cin),
+                 background: Container(
+                   color: Colors.cyan,
+                   child: const Icon(Icons.delete,color: Colors.white,),
+                 ),
+                 onDismissed: (direction) {
+                      deleteUser(data[index].id);
+                 },
+                 child: 
+                Card(
                   child: ListTile(
                     leading: Checkbox(
                       value: memeber.present,
@@ -175,7 +184,38 @@ Widget build(BuildContext context) {
                       children: [
                         IconButton(
                           onPressed: () {
-                            showDialog(
+                          },
+                          icon: const Icon(
+                            Icons.edit,
+                            color: Colors.yellow,
+                          ),
+                        ),
+                          IconButton(
+                          onPressed: () {
+                          },
+                          icon: const Icon(
+                            Icons.info,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        IconButton(onPressed: (){
+                          changePayer(data[index].ispayer,data[index].id);
+                        }, icon:Icon(data[index].ispayer? Icons.attach_money_sharp : Icons.money_off))
+                      ],
+                    ),
+                  ),
+                ));
+              },
+            ),
+          ),
+      ],
+    ),
+  );
+}
+}
+/*
+
+  showDialog(
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
@@ -188,13 +228,12 @@ Widget build(BuildContext context) {
                                           onPressed: () {
                                             deleteUser(data[index].id);
                                           },
-                                       
                                           style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                                              child: const Text("confirm"),
                                         ),
                                         ElevatedButton(
                                           onPressed: () {
-                                            Navigator.of(context).pop();
+                                            
                                           },
                                             style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                                               child:const  Text("Close"),
@@ -202,27 +241,4 @@ Widget build(BuildContext context) {
                                       ],
                                     )
                                   ],
-                                );
-                              },
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                        ),
-                        IconButton(onPressed: (){
-                          changePayer(data[index].ispayer,data[index].id);
-                        }, icon:Icon(data[index].ispayer? Icons.attach_money_sharp : Icons.money_off))
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-      ],
-    ),
-  );
-}
-}
+                                );*/

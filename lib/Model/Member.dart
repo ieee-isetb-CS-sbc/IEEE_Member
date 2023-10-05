@@ -1,20 +1,21 @@
-
-
 class Member{
   int id;
   String nom;
   String lastname;
   String email;
+  String cin;
   bool ispayer;
   bool present;
   String chaptername;
-  Member({required this.id,required this.nom,required this.lastname,required this.email,required this.ispayer,
+  
+  Member({required this.id,required this.nom,required this.cin,required this.lastname,required this.email,required this.ispayer,
   required this.present,required this.chaptername});
 
   factory Member.fromJson(Map<String,dynamic> json){
     return Member(
       id: json['id'],
       nom: json['nom'], 
+      cin: json['cin'],
       lastname: json['lastname'],
        email: json['email'], 
        ispayer: json['ispayer'], 
@@ -28,13 +29,16 @@ class Member{
       'nom': nom,
       'lastname': lastname,
       'email': email,
+      'cin':cin,
       'ispayer': ispayer,
       'present': present,
       'chaptername': chaptername,
     };
   }
+
   @override
   String toString() {
     return nom;
   }
+
 }

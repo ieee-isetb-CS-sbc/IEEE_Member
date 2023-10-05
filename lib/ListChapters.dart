@@ -6,7 +6,7 @@ import 'package:member_ieee/Model/Member.dart';
 import 'Model/chapters.dart';
 import 'PgesForMembers.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
+ 
 class ListChapter extends StatefulWidget {
   @override
   State<ListChapter> createState() => _ListChapter();
@@ -45,6 +45,7 @@ void getFromLocalStoreg() async {
     cahpters(Nom: "WIE", ImaggPath: "images/wie.PNG"),
     cahpters(Nom: "RAS", ImaggPath: "images/ras.PNG"),
     cahpters(Nom: "IAS", ImaggPath: "images/ias.PNG"),
+    cahpters(Nom: "Other", ImaggPath: "images/sb.JPG"),
   ];
 
   Future<void> NavigationScreen(data) async{
@@ -69,7 +70,7 @@ void getFromLocalStoreg() async {
         ],
       ),
       body: Center(
-        child: Padding(padding:const EdgeInsets.only(top: 120),child: GridView.builder(
+        child: Padding(padding:const EdgeInsets.only(top: 70),child: GridView.builder(
           itemCount: groupChapters.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,

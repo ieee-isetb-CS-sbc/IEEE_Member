@@ -121,26 +121,25 @@ void ChangeSatet(val,int id){
 
 
 Future<void> ShowBotoomsheet(User)async{
-  print(User);
   await showModalBottomSheet(context: context, builder:(context){
       return Center(
-        child: Padding(padding: EdgeInsets.all(50),
+        child: Padding(padding:const EdgeInsets.all(50),
         child: Container(
           child: Column(children: [
-            Text("Info ${User.nom}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)),
-             SizedBox(height: 50,),
+            Text("Info ${User.nom}",style:const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)),
+             const SizedBox(height: 50,),
             SimpleDialogOption(
               child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,
               children: [
-                Text("Cin :",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 18),),
-                Text(User.cin,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18))
+                const Text("Cin :",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 18),),
+                Text(User.cin,style:const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18))
               ]),
             ),
              SimpleDialogOption(
               child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,
               children: [
-                Text("Num Tlf :",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 18)),
-                Text(User.tlf,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18))
+                const Text("Num Tlf :",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 18)),
+                Text(User.tlf,style:const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18))
               ]),
             )
           ]),
@@ -159,7 +158,7 @@ Widget build(BuildContext context) {
   mainAxisAlignment: MainAxisAlignment.end,
   children: [
     FloatingActionButton(
-       backgroundColor: widget.NameChapter.toUpperCase()=="RAS" ? Color.fromARGB(255, 55, 2, 64) : widget.NameChapter.toUpperCase()=="WIE"  ? Colors.pink : widget.NameChapter.toUpperCase()=="IAS" ? Color.fromARGB(255, 2, 201, 9) : widget.NameChapter.toUpperCase()=="OTHER" ? Colors.white : Colors.blue ,
+       backgroundColor: widget.NameChapter.toUpperCase()=="RAS" ? const Color.fromARGB(255, 55, 2, 64) : widget.NameChapter.toUpperCase()=="WIE"  ? Colors.pink : widget.NameChapter.toUpperCase()=="IAS" ? Color.fromARGB(255, 2, 201, 9) : widget.NameChapter.toUpperCase()=="OTHER" ? Colors.white : Colors.blue ,
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) =>
           AddMember(chapterName: widget.NameChapter, addInLocalStorageMember: addInLocalStorageMember)
@@ -171,7 +170,7 @@ Widget build(BuildContext context) {
 ),
     appBar: AppBar(
       iconTheme: IconThemeData(color:widget.NameChapter.toUpperCase()=="OTHER" ? Colors.blue : Colors.white ),
-      backgroundColor: widget.NameChapter.toUpperCase()=="RAS" ? Color.fromARGB(255, 55, 2, 64) : widget.NameChapter.toUpperCase()=="WIE"  ? Colors.pink : widget.NameChapter.toUpperCase()=="IAS" ? Color.fromARGB(255, 2, 201, 9) : widget.NameChapter.toUpperCase()=="OTHER" ? Colors.white : Colors.blue ,
+      backgroundColor: widget.NameChapter.toUpperCase()=="RAS" ? const Color.fromARGB(255, 55, 2, 64) : widget.NameChapter.toUpperCase()=="WIE"  ? Colors.pink : widget.NameChapter.toUpperCase()=="IAS" ? const Color.fromARGB(255, 2, 201, 9) : widget.NameChapter.toUpperCase()=="OTHER" ? Colors.white : Colors.blue ,
       title: Text(
         "${widget.NameChapter}  (${data.length})",
         style:  TextStyle(color: widget.NameChapter.toUpperCase()=="OTHER" ? Colors.blue : Colors.white, fontWeight: FontWeight.bold),

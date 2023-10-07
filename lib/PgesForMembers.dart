@@ -120,6 +120,35 @@ void ChangeSatet(val,int id){
 }
 
 
+Future<void> ShowBotoomsheet(User)async{
+  print(User);
+  await showModalBottomSheet(context: context, builder:(context){
+      return Center(
+        child: Padding(padding: EdgeInsets.all(50),
+        child: Container(
+          child: Column(children: [
+            Text("Info ${User.nom}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)),
+             SizedBox(height: 50,),
+            SimpleDialogOption(
+              child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Cin :",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 18),),
+                Text(User.cin,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18))
+              ]),
+            ),
+             SimpleDialogOption(
+              child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Num Tlf :",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 18)),
+                Text(User.tlf,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18))
+              ]),
+            )
+          ]),
+        ),)
+      );
+  });
+}
+
  
 @override
 Widget build(BuildContext context) {
@@ -219,6 +248,7 @@ Widget build(BuildContext context) {
                         ),
                           IconButton(
                           onPressed: () {
+                              ShowBotoomsheet(data[index]);
                           },
                           icon: const Icon(
                             Icons.info,

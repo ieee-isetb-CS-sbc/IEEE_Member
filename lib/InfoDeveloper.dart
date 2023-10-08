@@ -13,9 +13,9 @@ class InfoDeveloper extends StatelessWidget {
        drawer: Drawer(
             child: Column(
               children: [
-                SizedBox(height: 100,),
-                Text("Created By"),
-                SizedBox(height: 10,),
+                const SizedBox(height: 100,),
+                const Text("Created By"),
+                const SizedBox(height: 10,),
                ClipRRect(
                   borderRadius: BorderRadius.circular(30), 
                   child: Image.asset("images/profil.jpg", width: 120),
